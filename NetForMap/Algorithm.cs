@@ -6,9 +6,13 @@ namespace NetForMap
     {
         private static Algorithm instance = null;
         private DataP3[] dataPoints;//Исходные точки
-        private DataP3[] targetPoints;//Точки сетки
+        private DataP3[,] targetPoints;//Точки сетки
         private int numDataPoints;//Кол-во исходных точек
         private int type;//Тип весовой ф-ии
+
+        //new
+        private PathAlgorithm pathAlgorithm;
+        private int paramLocal = 20;
 
         private Algorithm(ref DataP3[] _dataPoints)
         { Init(ref _dataPoints); }
@@ -27,7 +31,7 @@ namespace NetForMap
             int kx = (int)(widthNetX / cellWidth) + 1;
             int ky = (int)(widthNetY / cellWidth) + 1;
             int numTargetPoints = kx * ky * 4;
-            targetPoints = new DataP3[numTargetPoints];
+            targetPoints = new DataP3[2 * kx, 2 * ky];
 
             int index = 0;
             for (double i = 0; i < kx; i += 0.5)
@@ -36,7 +40,7 @@ namespace NetForMap
                 for (double j = 0; j < ky; j += 0.5)
                 {
                     double y = minY + j * cellWidth;
-                    targetPoints[index] = new DataP3(x, y, 0);
+                    targetPoints[(int)(2*i),(int)(2*j)] = new DataP3(x, y, 0);
                     index++;
                 }
             }
@@ -64,17 +68,18 @@ namespace NetForMap
         public DataP3[] DataPoints
         { get { return dataPoints; } }
 
-        public DataP3[] TargetPoints
+        public DataP3[,] TargetPoints
         { get { return targetPoints; } }
 
         public void StartAlgorithm(int _type, int paramLocal)
         {
             this.type = _type;
-            for (int i = 0; i < targetPoints.Length; ++i)
-                targetPoints[i].Z = ObjectiveFunc(targetPoints[i].X, targetPoints[i].Y, paramLocal);
+            for (int i = 0; i < targetPoints.GetLength(0); ++i)
+                for (int j = 0; j < targetPoints.GetLength(1); j++)
+                    targetPoints[i,j].H = ObjectiveFunc(targetPoints[i,j].X, targetPoints[i,j].Y, paramLocal);
         }
 
-        private double ObjectiveFunc(double x0, double y0, int paramLocal)
+        public double ObjectiveFunc(double x0, double y0, int paramLocal) //?!!! public or private?
         {
             double[] a = OLSMethod(x0, y0, paramLocal);
             return a[0];
@@ -107,7 +112,7 @@ namespace NetForMap
                         int[] fi = BaseFunctions(x0, y0, dataPoints[i].X, dataPoints[i].Y);
                         A[k, m] += fi[k] * fi[m];
                         if (m == 0)
-                            b[k] += dataPoints[i].Z * fi[k];
+                            b[k] += dataPoints[i].H * fi[k];
                     }
                 }
             }*/
@@ -126,7 +131,7 @@ namespace NetForMap
                         double p = WeightingFunc(x0, y0, dataPoints[i].X, dataPoints[i].Y, paramLocal);
                         A[k, m] += fi[k] * fi[m - 1] * p;
                         if (m == 1)
-                            A[k, 0] += dataPoints[i].Z * fi[k] * p;
+                            A[k, 0] += dataPoints[i].H * fi[k] * p;
                     }
                 }
             }
@@ -221,6 +226,14 @@ namespace NetForMap
             double t3 = 1 + Math.Pow(x - 7, 2) + Math.Pow(y - 5, 2);
             double t4 = 1 + Math.Pow(x - 2, 2) + Math.Pow(y - 3, 2);
             return (2 / t1 + 3 / t2 + 5 / t3 + 4 / t4);
+        }
+
+        public DataP3[] FindPath(float x1, float y1, float x2, float y2)
+        {
+            DataP3 start = new DataP3(x1,y1, ObjectiveFunc(x1,y1,this.paramLocal));
+            DataP3 finish = new DataP3(x2,y2, ObjectiveFunc(x2,y2,this.paramLocal));
+            this.pathAlgorithm = new PathAlgorithm(start, finish,ref Algorithm.instance);
+            return this.pathAlgorithm.FindPath();
         }
     }
 }

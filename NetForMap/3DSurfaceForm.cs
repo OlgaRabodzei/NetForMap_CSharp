@@ -20,6 +20,26 @@ namespace NetForMap
             Init();
         }
 
+        public _3DSurfaceForm(DataP3[,] _data, string _dataType)
+        {
+            InitializeComponent();
+            control = Controller.getInstance();
+
+            data = new DataP3[_data.Length];
+            int indexArr = 0;
+            for (int i = 0; i < _data.GetLength(0); i++)
+            {
+                for (int j = 0; j < _data.GetLength(0); j++)
+                {
+                    data[indexArr] = _data[i, j];
+                    indexArr++;
+                }
+            }
+
+            dataType = _dataType;
+            Init();
+        }
+
         private void Init()
         {
             NCartesianChart chart = (NCartesianChart)nChartControl.Charts[0]; //3d график
@@ -80,7 +100,7 @@ namespace NetForMap
             {
                 surface.XValues.Add(data[i].X);
                 surface.ZValues.Add(data[i].Y);
-                surface.Values.Add(data[i].Z);
+                surface.Values.Add(data[i].H);
             }
         }
     }

@@ -63,19 +63,19 @@ namespace NetForMap
         /// <param name="dataPoints">Исходные точки</param>
         /// <param name="targetPoints">Точки регулярной сетки</param>
         /// <param name="fileName">Имя файла записи</param>
-        public void Write(ref DataP3[] dataPoints, ref DataP3[] targetPoints, string fileName)
+        public void Write(ref DataP3[] dataPoints, ref DataP3[,] targetPoints, string fileName)
         {
             Init(fileName);
             if (dataPoints.Length != 0)
             {
                 _workSheet.Cells[1, 1] = "X";
                 _workSheet.Cells[1, 2] = "Y";
-                _workSheet.Cells[1, 3] = "Z";
+                _workSheet.Cells[1, 3] = "H";
                 for (int i = 0; i < dataPoints.Length; i++) // по всем строкам
                 {
                     _workSheet.Cells[i + 2, 1] = dataPoints[i].X;
                     _workSheet.Cells[i + 2, 2] = dataPoints[i].Y;
-                    _workSheet.Cells[i + 2, 3] = dataPoints[i].Z;
+                    _workSheet.Cells[i + 2, 3] = dataPoints[i].H;
                 }
             }
             if (targetPoints.Length != 0)
@@ -83,13 +83,16 @@ namespace NetForMap
                 _workSheet = _workSheet.Next;
                 _workSheet.Cells[1, 1] = "X";
                 _workSheet.Cells[1, 2] = "Y";
-                _workSheet.Cells[1, 3] = "Z";
-                for (int i = 0; i < targetPoints.Length; i++) // по всем строкам
-                {
-                    _workSheet.Cells[i + 2, 1] = targetPoints[i].X;
-                    _workSheet.Cells[i + 2, 2] = targetPoints[i].Y;
-                    _workSheet.Cells[i + 2, 3] = targetPoints[i].Z;
-                }
+                _workSheet.Cells[1, 3] = "H";
+                int indexCell = 2;
+                for (int i = 0; i < targetPoints.GetLength(0); i++) // по всем строкам
+                    for (int j = 0; j < targetPoints.GetLength(1); j++)
+                    {
+                        _workSheet.Cells[indexCell, 1] = targetPoints[i,j].X;
+                        _workSheet.Cells[indexCell, 2] = targetPoints[i,j].Y;
+                        _workSheet.Cells[indexCell, 3] = targetPoints[i,j].H;
+                        indexCell++;
+                    }
             }
             _application.Visible = true;//открываем файл
         }

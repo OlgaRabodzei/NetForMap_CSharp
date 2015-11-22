@@ -65,7 +65,9 @@ namespace NetForMap
         { control.GenerateTestData(); }
 
         private void вычислитьРегулярнуюСеткуToolStripMenuItem_Click(object sender, EventArgs e)
-        { control.StartAlgorithm(type, paramLocal); }
+        { control.StartAlgorithm(type, paramLocal);
+        control.FindPath(1, 1, 6, 6);
+        }
 
         private void отобразитьТочкиНаПлоскостиToolStripMenuItem_Click(object sender, EventArgs e)
         { pictureBox.Invalidate(); }
@@ -83,6 +85,8 @@ namespace NetForMap
                 Pen pen = new Pen(Color.Red, 0.0f);
                 foreach (DataP3 p in control.TargetPoints)
                     e.Graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
+                Draw.DrawAllIsolines(control.TargetPoints, ref e);
+                Draw.DrawPath(control.GetLastPath(), ref e);
             }
             if (control.DataPoints != null)
             {

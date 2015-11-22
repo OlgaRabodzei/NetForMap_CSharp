@@ -6,8 +6,9 @@
         private FileManager fileManager;
         private Algorithm algorithm;
         private DataP3[] dataPoints;
-        private DataP3[] targetPoints;
+        private DataP3[,] targetPoints;
         private DataP3[] testSurface;
+        private DataP3[] lastPath;
 
         private Controller() { }
 
@@ -20,7 +21,7 @@
         public DataP3[] DataPoints
         { get { return dataPoints; } }
 
-        public DataP3[] TargetPoints
+        public DataP3[,] TargetPoints
         { get { return targetPoints; } }
 
         public DataP3[] TestSurface
@@ -44,7 +45,7 @@
                 fileManager.Write(ref dataPoints, ref targetPoints, fileName);
             else if (saveData)
             {
-                DataP3[] NULL = new DataP3[0];
+                DataP3[,] NULL = new DataP3[0,0];
                 fileManager.Write(ref dataPoints, ref NULL, fileName);
             }
             else if (saveResult)
@@ -83,7 +84,7 @@
         public void GenerateTestData()
         {
             Clear();
-            int lenght = 100;
+            int lenght = 100;//--******!!
             int max = 10;
             dataPoints = new DataP3[lenght];
             Algorithm.GenerateTestData(ref dataPoints, lenght, max);
@@ -95,5 +96,13 @@
 
         private void Clear()
         { dataPoints = null; targetPoints = null; }
+
+
+        public void FindPath(float x1, float y1, float x2, float y2)
+        {
+            this.lastPath = this.algorithm.FindPath(x1,y1,x2,y2);
+        }
+
+        public DataP3[] GetLastPath() { return this.lastPath; }
     }
 }
