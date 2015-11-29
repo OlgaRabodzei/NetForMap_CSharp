@@ -14,7 +14,7 @@ namespace NetForMap
         double coefOfConsumptionPos = 10;
         double coefOfConsumptionNeg = 5;
         int paramLocal = 20;//!!! дубликат из mainForm
-        double hVariation = 1;
+        double hVariation = 0.25;
 
         //fields
         DataP3[] path;
@@ -93,15 +93,19 @@ namespace NetForMap
                 return 0;
         }
 
-        private int MaxConsumption()
+        private int MaxConsumption(ref bool oldIsInStart)
         {
             int pointForVariation = this.heapConsumption.GetMax().getStart();
-            if (pointForVariation == 0) //can't variate start point
+            oldIsInStart = true;
+            if (pointForVariation == 0)
+            { //can't variate start point
+                oldIsInStart = false;
                 return this.heapConsumption.GetMax().getFinish();
+            }
             return pointForVariation;
         }
 
-        private bool VariationOfPointWithMaxConsump(int index)
+        private bool VariationOfPointWithMaxConsump(int index, bool oldIsInStart = true)
         {
             //TO DO: check formuls
 
@@ -120,6 +124,18 @@ namespace NetForMap
                 double lambda = Math.Sqrt(Math.Pow(x_a, 2) + Math.Pow(y_a, 2)) / Math.Sqrt(Math.Pow(x_b, 2) + Math.Pow(y_b, 2));
                 x_bisector = (this.path[index - 1].X + lambda * this.path[index + 1].X) / (1 + lambda);
                 y_bisector = (this.path[index - 1].Y + lambda * this.path[index + 1].Y) / (1 + lambda);
+            }
+            else {
+                if (x_a != 0)
+                {
+                    y_bisector = 1;
+                    x_bisector = -y_a / x_a;
+                }
+                else if (y_a != 0)
+                {
+                    x_bisector = 1;
+                    y_bisector = -x_a / y_a;
+                }
             }
 
             DataP3 posVariation, negVariation;
@@ -147,30 +163,59 @@ namespace NetForMap
             //change path
             if (posVarConsump < negVarConsump)
             {
+                ChangePath(index, posVariation, posVarConsump, oldIsInStart);
+                /*
                 this.path[index] = posVariation;
                 //change consumption(priority) for point in heap
                 this.heapConsumption.ChangePriority(posVarConsump);
+                */
             }
             else
             {
+                ChangePath(index, negVariation, negVarConsump, oldIsInStart);
+                /*
                 this.path[index] = negVariation;
                 //change consumption(priority) for point in heap
                 this.heapConsumption.ChangePriority(negVarConsump);//Error!
+                */
             }
             return true;
         }
 
         public DataP3[] FindPath()
         {
-            int pointForVariation = this.MaxConsumption();
+            bool oldIsInStart = true;
+            int pointForVariation; // = this.MaxConsumption(ref oldIsInStart);
             bool pathWasChenged = false;
             do
             {
-                pointForVariation = this.MaxConsumption();
-                pathWasChenged = VariationOfPointWithMaxConsump(pointForVariation);
+                pointForVariation = this.MaxConsumption(ref oldIsInStart);
+                pathWasChenged = VariationOfPointWithMaxConsump(pointForVariation, oldIsInStart);
             } while (pathWasChenged);
 
             return this.path;
+        }
+
+        private void ChangePath(int indexOfOldPoint, DataP3 newPoint, double newConsumption, bool oldIsInStart = true)
+        {
+            this.path[indexOfOldPoint] = newPoint;
+            //change consumption(priority) for point in heap
+            this.heapConsumption.ChangePriority(newConsumption);
+
+            int heapIndex = 1;
+            double consump;
+            if (oldIsInStart)
+            {
+                int indexPrev = this.heapConsumption.FindPathWithPoint(ref heapIndex, indexOfOldPoint);
+                consump = ConsumptionFunction(this.path[indexPrev], this.path[indexOfOldPoint]);
+
+            }
+            else
+            {
+                int indexNext = this.heapConsumption.FindPathWithPoint(ref heapIndex, indexOfOldPoint, false);
+                consump = ConsumptionFunction(this.path[indexOfOldPoint], this.path[indexNext]);
+            }
+            this.heapConsumption.ChangePriority(consump, heapIndex);
         }
     }
 }

@@ -17,13 +17,14 @@ namespace NetForMap
         private void SiftUp(int index)
         {
             if (index == 0) return;
-            if (heap[index / 2] < heap[index])
+            if (heap[(index - 1) / 2] < heap[index])
             {
                 Pair a = heap[index];
-                heap[index] = heap[index / 2];
-                heap[index / 2] = a;
+                heap[index] = heap[(index - 1) / 2];
+                heap[(index - 1) / 2] = a;
+
+                SiftUp((index - 1) / 2);
             }
-            SiftUp(index / 2);
         }
 
         private void SiftDown(int index)
@@ -31,24 +32,25 @@ namespace NetForMap
             if (index == this.count) return;
             //if there is one child
             int minChildIndex = 0;
-            if (2 * index < this.count)
-                minChildIndex = 2 * index;
+            if (2 * index + 1 < this.count)
+                minChildIndex = 2 * index + 1;
             else
                 return;
             //if there are two children choose max
             if (
-                ((2 * index + 1) < this.count) &&
-                (heap[2 * index] < heap[2 * index + 1])
+                ((2 * index + 2) < this.count) &&
+                (heap[2 * index + 1] < heap[2 * index + 2])
               )
-                minChildIndex = 2 * index + 1;
+                minChildIndex = 2 * index + 2;
             //compare parent and child
             if (heap[index] < heap[minChildIndex])
             {
                 Pair a = heap[index];
                 heap[index] = heap[minChildIndex];
                 heap[minChildIndex] = a;
+
+                SiftDown(minChildIndex);
             }
-            SiftDown(minChildIndex);
         }
 
         public void Insert(Pair p)
@@ -74,6 +76,33 @@ namespace NetForMap
             else if (index < this.count && this.heap[index / 2] < this.heap[index]) //if parent is smaller
             { SiftUp(index); }
             else { SiftDown(index); }
+        }
+
+        public int FindPathWithPoint(ref int heapIndex, int point, bool itFinish = true)
+        {
+            if (itFinish)
+            {
+                for (int i = 0; i < this.count; i++)
+                {
+                    if (this.heap[i].getFinish() == point)
+                    {
+                        heapIndex = i;
+                        return this.heap[i].getStart();
+                    }
+                }
+            }
+            else //it's start
+            {
+                for (int i = 0; i < this.count; i++)
+                {
+                    if (this.heap[i].getStart() == point)
+                    {
+                        heapIndex = i;
+                        return this.heap[i].getFinish();
+                    }
+                }
+            }
+            return -1;
         }
     }
 }
