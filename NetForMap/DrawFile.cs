@@ -4,8 +4,21 @@ using System.Windows.Forms;
 using System.Drawing;
 namespace NetForMap
 {
-    static class Draw
+    public class Draw
     {
+        private static Draw instance;
+        private Graphics graphics;
+
+        private Draw(PictureBox pictureBox) {
+            this.graphics = pictureBox.CreateGraphics();
+        }
+
+        public static Draw getInstance(PictureBox pictureBox)
+        {
+            if (instance == null) instance = new Draw(pictureBox);
+            return instance;
+        }
+
         static DataP3 CrossPoint(DataP3 p1, DataP3 p2, float H)
         {
             //double deltaH = (H - p1.H) / (p2.H - p1.H);
@@ -89,20 +102,20 @@ namespace NetForMap
             else return new DataP3(0, 0, -1);
         }
 
-        public static void DrawAllIsolines(DataP3[,] Points, ref PaintEventArgs e)
+        public void DrawAllIsolines(DataP3[,] Points)
         {
             //ДОДЕЛАТЬ! автоматическое построение всех
-            DrawIsoline(Points, 0.0f, ref e);
-            DrawIsoline(Points, 0.5f, ref e);
-            DrawIsoline(Points, 1.0f, ref e);
-            DrawIsoline(Points, 1.5f, ref e);
-            DrawIsoline(Points, 2.0f, ref e);
-            DrawIsoline(Points, 2.5f, ref e);
-            DrawIsoline(Points, 3.0f, ref e);
-            DrawIsoline(Points, 3.5f, ref e);
+            DrawIsoline(Points, 0.0f);
+            DrawIsoline(Points, 0.5f);
+            DrawIsoline(Points, 1.0f);
+            DrawIsoline(Points, 1.5f);
+            DrawIsoline(Points, 2.0f);
+            DrawIsoline(Points, 2.5f);
+            DrawIsoline(Points, 3.0f);
+            DrawIsoline(Points, 3.5f);
         }
 
-        static void DrawIsoline(DataP3[,] Points, float H, ref PaintEventArgs e)
+        private void DrawIsoline(DataP3[,] Points, float H)
         {
             List<PointF> crossPoints = new List<PointF>();
             int rows = Points.GetLength(0);
@@ -131,31 +144,31 @@ namespace NetForMap
                         crossPoints.Add((PointF)crPoint);
 
                     if (crossPoints.Count > 1 && crossPoints.Count < 4)
-                        DrawCrossLines(crossPoints, ref e);
+                        DrawCrossLines(crossPoints);
                     crossPoints.Clear();
                 }
             }
 
         }
 
-        static void DrawCrossLines(List<PointF> crossPoints, ref PaintEventArgs e)
+        private void DrawCrossLines(List<PointF> crossPoints)
         {
             Pen pen = new Pen(Color.Red, 0.0f);
-            e.Graphics.DrawLine(pen, crossPoints[0], crossPoints[1]);
+            graphics.DrawLine(pen, crossPoints[0], crossPoints[1]);
             if (crossPoints.Count == 3)
             {
-                e.Graphics.DrawLine(pen, crossPoints[0], crossPoints[2]);
-                e.Graphics.DrawLine(pen, crossPoints[1], crossPoints[2]);
+                graphics.DrawLine(pen, crossPoints[0], crossPoints[2]);
+                graphics.DrawLine(pen, crossPoints[1], crossPoints[2]);
             }
             //e.Graphics.DrawClosedCurve(pen, crossPoints.ToArray());
         }
 
-        public static void DrawPath(DataP3[] path, ref PaintEventArgs e)
+        public void DrawPath(DataP3[] path)
         {
-            Pen pen = new Pen(Color.BlueViolet, 0.0f);
+            Pen pen = new Pen(Color.BlueViolet, 0.05f);
             Pen pen1 = new Pen(Color.Green, 0.0f);
-            e.Graphics.DrawLines(pen, DataP3.ToPointFArray(path));
-            e.Graphics.DrawCurve(pen, DataP3.ToPointFArray(path));
+            graphics.DrawLines(pen, DataP3.ToPointFArray(path));
+            //e.Graphics.DrawCurve(pen, DataP3.ToPointFArray(path));
         }
     }
 }

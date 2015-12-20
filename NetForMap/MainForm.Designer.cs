@@ -288,12 +288,12 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton1.Location = new System.Drawing.Point(527, 224);
+            this.radioButton1.Location = new System.Drawing.Point(527, 223);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(55, 20);
+            this.radioButton1.Size = new System.Drawing.Size(81, 20);
             this.radioButton1.TabIndex = 7;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "1/|u|";
+            this.radioButton1.Text = "1/(|u|+1)";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 

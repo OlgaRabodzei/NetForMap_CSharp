@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.b_Load = new System.Windows.Forms.Button();
+            this.b_DrawPoints = new System.Windows.Forms.Button();
+            this.b_FindAndDrawNet = new System.Windows.Forms.Button();
+            this.b_FindAndDrawPath = new System.Windows.Forms.Button();
+            this.b_Clear = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,62 +47,72 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regularNetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button6 = new System.Windows.Forms.Button();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.b_Surface = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // b_Load
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(0, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(704, 30);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Load data";
-            this.button1.UseVisualStyleBackColor = true;
+            this.b_Load.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_Load.Location = new System.Drawing.Point(0, 24);
+            this.b_Load.Name = "b_Load";
+            this.b_Load.Size = new System.Drawing.Size(704, 30);
+            this.b_Load.TabIndex = 0;
+            this.b_Load.Text = "Load data";
+            this.b_Load.UseVisualStyleBackColor = true;
+            this.b_Load.Click += new System.EventHandler(this.b_Load_Click);
             // 
-            // button2
+            // b_DrawPoints
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.Location = new System.Drawing.Point(0, 54);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(704, 30);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Draw loaded points";
-            this.button2.UseVisualStyleBackColor = true;
+            this.b_DrawPoints.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_DrawPoints.Enabled = false;
+            this.b_DrawPoints.Location = new System.Drawing.Point(0, 54);
+            this.b_DrawPoints.Name = "b_DrawPoints";
+            this.b_DrawPoints.Size = new System.Drawing.Size(704, 30);
+            this.b_DrawPoints.TabIndex = 1;
+            this.b_DrawPoints.Text = "Draw loaded points";
+            this.b_DrawPoints.UseVisualStyleBackColor = true;
+            this.b_DrawPoints.Click += new System.EventHandler(this.b_DrawPoints_Click);
             // 
-            // button3
+            // b_FindAndDrawNet
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.Location = new System.Drawing.Point(0, 84);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(704, 30);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Find and draw regular net";
-            this.button3.UseVisualStyleBackColor = true;
+            this.b_FindAndDrawNet.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_FindAndDrawNet.Enabled = false;
+            this.b_FindAndDrawNet.Location = new System.Drawing.Point(0, 84);
+            this.b_FindAndDrawNet.Name = "b_FindAndDrawNet";
+            this.b_FindAndDrawNet.Size = new System.Drawing.Size(704, 30);
+            this.b_FindAndDrawNet.TabIndex = 2;
+            this.b_FindAndDrawNet.Text = "Find and draw regular net";
+            this.b_FindAndDrawNet.UseVisualStyleBackColor = true;
+            this.b_FindAndDrawNet.Click += new System.EventHandler(this.b_FindAndDrawNet_Click);
             // 
-            // button4
+            // b_FindAndDrawPath
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.Location = new System.Drawing.Point(0, 114);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(704, 30);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Find and draw path";
-            this.button4.UseVisualStyleBackColor = true;
+            this.b_FindAndDrawPath.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_FindAndDrawPath.Enabled = false;
+            this.b_FindAndDrawPath.Location = new System.Drawing.Point(0, 114);
+            this.b_FindAndDrawPath.Name = "b_FindAndDrawPath";
+            this.b_FindAndDrawPath.Size = new System.Drawing.Size(704, 30);
+            this.b_FindAndDrawPath.TabIndex = 3;
+            this.b_FindAndDrawPath.Text = "Find and draw path";
+            this.b_FindAndDrawPath.UseVisualStyleBackColor = true;
+            this.b_FindAndDrawPath.Click += new System.EventHandler(this.b_FindAndDrawPath_Click);
             // 
-            // button5
+            // b_Clear
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.Location = new System.Drawing.Point(0, 144);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(704, 30);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Clear field";
-            this.button5.UseVisualStyleBackColor = true;
+            this.b_Clear.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_Clear.Enabled = false;
+            this.b_Clear.Location = new System.Drawing.Point(0, 144);
+            this.b_Clear.Name = "b_Clear";
+            this.b_Clear.Size = new System.Drawing.Size(704, 30);
+            this.b_Clear.TabIndex = 4;
+            this.b_Clear.Text = "Clear field";
+            this.b_Clear.UseVisualStyleBackColor = true;
+            this.b_Clear.Click += new System.EventHandler(this.b_Clear_Click);
             // 
             // menuStrip1
             // 
@@ -196,24 +206,14 @@
             // regularNetToolStripMenuItem
             // 
             this.regularNetToolStripMenuItem.Name = "regularNetToolStripMenuItem";
-            this.regularNetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.regularNetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.regularNetToolStripMenuItem.Text = "Regular net";
             // 
             // pathToolStripMenuItem
             // 
             this.pathToolStripMenuItem.Name = "pathToolStripMenuItem";
-            this.pathToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pathToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.pathToolStripMenuItem.Text = "Path";
-            // 
-            // button6
-            // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.Location = new System.Drawing.Point(0, 174);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(704, 30);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Surface";
-            this.button6.UseVisualStyleBackColor = true;
             // 
             // testToolStripMenuItem
             // 
@@ -221,35 +221,52 @@
             this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.testToolStripMenuItem.Text = "Test";
             // 
-            // pictureBox1
+            // b_Surface
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 204);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(704, 267);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.b_Surface.Dock = System.Windows.Forms.DockStyle.Top;
+            this.b_Surface.Enabled = false;
+            this.b_Surface.Location = new System.Drawing.Point(0, 174);
+            this.b_Surface.Name = "b_Surface";
+            this.b_Surface.Size = new System.Drawing.Size(704, 30);
+            this.b_Surface.TabIndex = 7;
+            this.b_Surface.Text = "Surface";
+            this.b_Surface.UseVisualStyleBackColor = true;
+            this.b_Surface.Click += new System.EventHandler(this.b_Surface_Click);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 204);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(704, 267);
+            this.pictureBox.TabIndex = 8;
+            this.pictureBox.TabStop = false;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 471);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.b_Surface);
+            this.Controls.Add(this.b_Clear);
+            this.Controls.Add(this.b_FindAndDrawPath);
+            this.Controls.Add(this.b_FindAndDrawNet);
+            this.Controls.Add(this.b_DrawPoints);
+            this.Controls.Add(this.b_Load);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,11 +274,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button b_Load;
+        private System.Windows.Forms.Button b_DrawPoints;
+        private System.Windows.Forms.Button b_FindAndDrawNet;
+        private System.Windows.Forms.Button b_FindAndDrawPath;
+        private System.Windows.Forms.Button b_Clear;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadDataToolStripMenuItem;
@@ -276,8 +293,9 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem regularNetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pathToolStripMenuItem;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button b_Surface;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
