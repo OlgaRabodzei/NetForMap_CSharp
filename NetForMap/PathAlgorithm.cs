@@ -18,7 +18,7 @@ namespace NetForMap
 
         //fields
         DataP3[] path;
-        Heap heapConsumption;//затраты на отрезках пути
+        Heap heap;//затраты на отрезках пути
         DataP3 start;
         DataP3 finish;
 
@@ -37,6 +37,7 @@ namespace NetForMap
 
         private void FirstApproximation()
         {
+            Pair[] points = new Pair[n]; 
             #region Разбиение прямой на отрезки
             //параметры прямой
             double A = this.start.Y - finish.Y;
@@ -53,25 +54,29 @@ namespace NetForMap
             double x = this.start.X;
             double y = this.start.Y;
             //цикл разбиения прямой на отрезки
-            for (int i = 1; i < this.n; i++)
+            for (int i = 1; i < this.n-1; i++)
             {
                 x = this.start.X + i * step;
                 y = (-A * x - C) / B;
                 double H = algorithm.ObjectiveFunc(x, y, paramLocal);
-                path[i] = new DataP3(x, y, H);
+                path[i] = new DataP3(x, y, H); // do i need it?
             }
             #endregion
             #region Расчет затрат на каждый отрезок пути
             //Построение кучи из затрат на каждом отрезке пути
-            double firstConsump = ConsumptionFunction(this.path[0], this.path[1]);
-            Pair root = new Pair(0,1, firstConsump);
-            this.heapConsumption = new Heap(n - 1, root);
+            //double firstConsump = ConsumptionFunction(this.path[0], this.path[1]);
+            //Pair root = new Pair(0,1, firstConsump);
+            //this.heapConsumption = new Heap(n - 1, root);
+            points[0] = new Pair(path[0]);
+            points[n-1] = new Pair(path[n-1]);
             for (int i = 1; i < n - 1; i++)
             {
                 double consump = ConsumptionFunction(this.path[i], this.path[i + 1]);
-                this.heapConsumption.Insert(new Pair(i, i + 1, consump));
+                points[i] = new Pair(path[i], consump);
+                //this.heapConsumption.Insert(new Pair(i, i + 1, consump));
             }
             #endregion
+            this.heap = new Heap(points);
         }
 
         private double ConsumptionFunction(DataP3 start, DataP3 finish)
@@ -93,15 +98,15 @@ namespace NetForMap
                 return 0;
         }
 
-        private int MaxConsumption(ref bool oldIsInStart)
+        private Pair MaxConsumption(ref bool oldIsInStart)
         {
-            int pointForVariation = this.heapConsumption.GetMax().getStart();
-            oldIsInStart = true;
+            Pair pointForVariation = this.heap.GetMax();
+            /*oldIsInStart = true;
             if (pointForVariation == 0)
             { //can't variate start point
                 oldIsInStart = false;
                 return this.heapConsumption.GetMax().getFinish();
-            }
+            }*/
             return pointForVariation;
         }
 

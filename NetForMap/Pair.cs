@@ -2,31 +2,24 @@ namespace NetForMap
 {
     class Pair
     {
-        private int start;
-        private int finish;
+        private DataP3 point;
         private double consumption;
 
-        /*public Pair()
+        public Pair()
         {
             this.point = new DataP3();
             this.consumption = double.MinValue;
-        }*/
+        }
 
-        public Pair(int _start, int _finish, double _consumption)
+        public Pair(DataP3 _point, double _consumption = double.MinValue)
         {
-            this.start = _start;
-            this.finish = _finish;
+            this.point = _point;
             this.consumption = _consumption;
         }
 
-        public int getStart()
+        public DataP3 getPoint()
         {
-            return this.start;
-        }
-
-        public int getFinish()
-        {
-            return this.finish;
+            return this.point;
         }
 
         public double getConsumption()
