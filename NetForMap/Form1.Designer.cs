@@ -206,14 +206,15 @@
             // regularNetToolStripMenuItem
             // 
             this.regularNetToolStripMenuItem.Name = "regularNetToolStripMenuItem";
-            this.regularNetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.regularNetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.regularNetToolStripMenuItem.Text = "Regular net";
             // 
             // pathToolStripMenuItem
             // 
             this.pathToolStripMenuItem.Name = "pathToolStripMenuItem";
-            this.pathToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.pathToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pathToolStripMenuItem.Text = "Path";
+            this.pathToolStripMenuItem.Click += new System.EventHandler(this.pathToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
@@ -245,7 +246,7 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.FileName = "Высоты.xlsx";
             this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
             // Form1

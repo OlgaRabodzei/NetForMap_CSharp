@@ -170,5 +170,9 @@ namespace NetForMap
             graphics.DrawLines(pen, DataP3.ToPointFArray(path));
             //e.Graphics.DrawCurve(pen, DataP3.ToPointFArray(path));
         }
+
+        public void SetScale(float kx, float ky) {
+            graphics.ScaleTransform(kx, ky);
+        }
     }
 }

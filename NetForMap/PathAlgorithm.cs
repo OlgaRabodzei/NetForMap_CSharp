@@ -9,8 +9,8 @@ namespace NetForMap
         Algorithm algorithm;
 
         //константы! вводятся в программу конфигом или с формы
-        int n = 10; //кол-во разбиений
-        double consumptionMin = 10;
+        int n = 100; //кол-во разбиений
+        double consumptionMin = 2;
         double coefOfConsumptionPos = 10;
         double coefOfConsumptionNeg = 5;
         int paramLocal = 20;//!!! дубликат из mainForm
@@ -98,18 +98,6 @@ namespace NetForMap
                 return 0;
         }
 
-        private Pair MaxConsumption(ref bool oldIsInStart)
-        {
-            Pair pointForVariation = this.heap.GetMax();
-            /*oldIsInStart = true;
-            if (pointForVariation == 0)
-            { //can't variate start point
-                oldIsInStart = false;
-                return this.heapConsumption.GetMax().getFinish();
-            }*/
-            return pointForVariation;
-        }
-
         private bool VariationOfPointWithMaxConsump(int index, bool oldIsInStart = true)
         {
             //TO DO: check formuls
@@ -161,28 +149,27 @@ namespace NetForMap
 
 
             // condition for loop exit, if new paths are worse
-            if (this.heapConsumption.GetMax().getConsumption() < posVarConsump &&
-                this.heapConsumption.GetMax().getConsumption() < negVarConsump)
+            if (this.heap.GetMax().getConsumption() < posVarConsump &&
+                this.heap.GetMax().getConsumption() < negVarConsump)
             { return false; }
 
             //change path
             if (posVarConsump < negVarConsump)
             {
-                ChangePath(index, posVariation, posVarConsump, oldIsInStart);
-                /*
+                //ChangePath(index, posVariation, posVarConsump, oldIsInStart);
+                
                 this.path[index] = posVariation;
                 //change consumption(priority) for point in heap
-                this.heapConsumption.ChangePriority(posVarConsump);
-                */
+                this.heap.ChangePriority(posVarConsump, index);
+                
             }
             else
             {
-                ChangePath(index, negVariation, negVarConsump, oldIsInStart);
-                /*
+                //ChangePath(index, negVariation, negVarConsump, oldIsInStart);
+                
                 this.path[index] = negVariation;
                 //change consumption(priority) for point in heap
-                this.heapConsumption.ChangePriority(negVarConsump);//Error!
-                */
+                this.heap.ChangePriority(negVarConsump,index);
             }
             return true;
         }
@@ -191,17 +178,17 @@ namespace NetForMap
         {
             bool oldIsInStart = true;
             int pointForVariation; // = this.MaxConsumption(ref oldIsInStart);
-            bool pathWasChenged = false;
+            bool pathWasChanged = false;
             do
             {
-                pointForVariation = this.MaxConsumption(ref oldIsInStart);
-                pathWasChenged = VariationOfPointWithMaxConsump(pointForVariation, oldIsInStart);
-            } while (pathWasChenged);
+                pointForVariation = this.heap.GetIndexOfMax();
+                pathWasChanged = VariationOfPointWithMaxConsump(pointForVariation, oldIsInStart);
+            } while (pathWasChanged);
 
             return this.path;
         }
 
-        private void ChangePath(int indexOfOldPoint, DataP3 newPoint, double newConsumption, bool oldIsInStart = true)
+       /* private void ChangePath(int indexOfOldPoint, DataP3 newPoint, double newConsumption, bool oldIsInStart = true)
         {
             this.path[indexOfOldPoint] = newPoint;
             //change consumption(priority) for point in heap
@@ -221,6 +208,6 @@ namespace NetForMap
                 consump = ConsumptionFunction(this.path[indexOfOldPoint], this.path[indexNext]);
             }
             this.heapConsumption.ChangePriority(consump, heapIndex);
-        }
+        }*/
     }
 }

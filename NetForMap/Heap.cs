@@ -10,6 +10,7 @@ namespace NetForMap
 
         public Heap(Pair[] _points)
         {
+            this.points = _points;
             int pointsCount = _points.Length;
             this.count = 2*(pointsCount-1);
             this.heap = new int[this.count];
@@ -45,9 +46,12 @@ namespace NetForMap
             return points[heap[0]];
         }
 
+        public int GetIndexOfMax() { return heap[0]; }
+
         public void ChangePriority(double newPriority, int index) {
             points[index].setConsumption(newPriority);
-            SiftUp(points.Length - 1 + index);
+            //SiftUp(points.Length - 1 + index);
+            SiftUp(heap.Length - index);
         }
     }
 }

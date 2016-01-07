@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace NetForMap {
     public partial class Form1 : Form {
         Controller control;
-        private int type = 1;//Тип весовой функции
+        private int type = 2;//Тип весовой функции
         private int paramLocal = 20;//зачение параметра локальности
         private Draw draw;
 
@@ -58,6 +58,8 @@ namespace NetForMap {
                 Pen pen = new Pen(Color.Red, 0.0f);
                 foreach (DataP3 p in control.TargetPoints)
                     graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
+
+                draw.SetScale(kx, ky);
                 draw.DrawAllIsolines(control.TargetPoints);
             }
             b_Surface.Enabled = true;
@@ -65,7 +67,7 @@ namespace NetForMap {
         }
 
         private void b_FindAndDrawPath_Click(object sender, EventArgs e) {
-            control.FindPath(1, 1, 6, 6);
+            control.FindPath(1, 2, 8, 5);
             draw.DrawPath(control.GetLastPath());
         }
 
@@ -99,6 +101,11 @@ namespace NetForMap {
 
             kx = (float)(pictureBox.Width / (maxX + 1));
             ky = (float)(pictureBox.Height / (maxY + 1));
+        }
+
+        private void pathToolStripMenuItem_Click(object sender, EventArgs e) {
+            PathAlgorithmSettingsForm pathSettings = new PathAlgorithmSettingsForm();
+            pathSettings.Show(this);
         }
     }
 }
