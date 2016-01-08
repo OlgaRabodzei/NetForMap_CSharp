@@ -10,8 +10,6 @@ using System.Windows.Forms;
 namespace NetForMap {
     public partial class Form1 : Form {
         Controller control;
-        private int type = 2;//Тип весовой функции
-        private int paramLocal = 20;//зачение параметра локальности
         private Draw draw;
 
         public Form1() {
@@ -45,7 +43,7 @@ namespace NetForMap {
                 return;
             }
             // Find net
-            control.StartAlgorithm(type, paramLocal);
+            control.StartAlgorithm();
             // Draw net
             if (control.TargetPoints == null) {
                 return;
@@ -106,6 +104,11 @@ namespace NetForMap {
         private void pathToolStripMenuItem_Click(object sender, EventArgs e) {
             PathAlgorithmSettingsForm pathSettings = new PathAlgorithmSettingsForm();
             pathSettings.Show(this);
+        }
+
+        private void regularNetToolStripMenuItem_Click(object sender, EventArgs e) {
+            AlgorithmSettingsForm settings = new AlgorithmSettingsForm();
+            settings.Show(this);
         }
     }
 }

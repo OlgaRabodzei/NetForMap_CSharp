@@ -8,10 +8,6 @@ namespace NetForMap
         //как их познакомить?!
         Algorithm algorithm;
 
-        //константы! вводятся в программу конфигом или с формы
-        int n = 100; //кол-во разбиений
-        int paramLocal = 20;//!!! дубликат из mainForm
-
         //fields
         DataP3[] path;
         Heap heap;//затраты на отрезках пути
@@ -25,35 +21,35 @@ namespace NetForMap
             this.algorithm = _algorithm;
             
             //точки пути
-            path = new DataP3[n];
+            path = new DataP3[Constants.PathPointsNum];
 
             FirstApproximation();
         }
 
         private void FirstApproximation()
         {
-            Pair[] points = new Pair[n]; 
+            Pair[] points = new Pair[Constants.PathPointsNum]; 
             #region Разбиение прямой на отрезки
             //параметры прямой
             double A = this.start.Y - finish.Y;
             double B = finish.X - this.start.X;
             double C = this.start.X * finish.Y - finish.X * this.start.Y;
             //размер отрезка разбиения
-            double step = Math.Sqrt(Math.Pow((finish.X - this.start.X), 2) + Math.Pow((finish.Y - this.start.Y), 2)) / this.n;
+            double step = Math.Sqrt(Math.Pow((finish.X - this.start.X), 2) + Math.Pow((finish.Y - this.start.Y), 2)) / Constants.PathPointsNum;
             //записываем начало и конец
-            //start.H = algorithm.ObjectiveFunc(start.X, start.Y, paramLocal);
+            //start.H = algorithm.ObjectiveFunc(start.X, start.Y, Constants.ParamLocal);
             path[0] = this.start;
-            //finish.H = algorithm.ObjectiveFunc(finish.X, finish.Y, paramLocal);
-            path[n - 1] = this.finish;
+            //finish.H = algorithm.ObjectiveFunc(finish.X, finish.Y, Constants.ParamLocal);
+            path[Constants.PathPointsNum - 1] = this.finish;
             //задаем начальное значение Х для расчета точек на прямой
             double x = this.start.X;
             double y = this.start.Y;
             //цикл разбиения прямой на отрезки
-            for (int i = 1; i < this.n-1; i++)
+            for (int i = 1; i < Constants.PathPointsNum-1; i++)
             {
                 x = this.start.X + i * step;
                 y = (-A * x - C) / B;
-                double H = algorithm.ObjectiveFunc(x, y, paramLocal);
+                double H = algorithm.ObjectiveFunc(x, y);
                 path[i] = new DataP3(x, y, H); // do i need it?
             }
             #endregion
@@ -61,10 +57,10 @@ namespace NetForMap
             //Построение кучи из затрат на каждом отрезке пути
             //double firstConsump = ConsumptionFunction(this.path[0], this.path[1]);
             //Pair root = new Pair(0,1, firstConsump);
-            //this.heapConsumption = new Heap(n - 1, root);
+            //this.heapConsumption = new Heap(Constants.PathPointsNum - 1, root);
             points[0] = new Pair(path[0]);
-            points[n-1] = new Pair(path[n-1]);
-            for (int i = 1; i < n - 1; i++)
+            points[Constants.PathPointsNum-1] = new Pair(path[Constants.PathPointsNum-1]);
+            for (int i = 1; i < Constants.PathPointsNum - 1; i++)
             {
                 double consump = ConsumptionFunction(this.path[i], this.path[i + 1]);
                 points[i] = new Pair(path[i], consump);
@@ -131,12 +127,12 @@ namespace NetForMap
 
             x = path[index].X + Constants.VariationDist * x_bisector;
             y = path[index].Y + Constants.VariationDist * y_bisector;
-            H = this.algorithm.ObjectiveFunc(x, y, this.paramLocal);
+            H = this.algorithm.ObjectiveFunc(x, y);
             posVariation = new DataP3(x, y, H);
 
             x = path[index].X - Constants.VariationDist * x_bisector;
             y = path[index].Y - Constants.VariationDist * y_bisector;
-            H = this.algorithm.ObjectiveFunc(x, y, this.paramLocal);
+            H = this.algorithm.ObjectiveFunc(x, y);
             negVariation = new DataP3(x, y, H);
 
             double posVarConsump = ConsumptionFunction(posVariation, this.path[index + 1]);

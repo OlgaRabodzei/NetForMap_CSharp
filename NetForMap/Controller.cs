@@ -10,12 +10,22 @@
         private DataP3[] testSurface;
         private DataP3[] lastPath;
 
-        private Controller() { }
+        private Controller() { SetDefaultValues(); }
 
         public static Controller getInstance()
         {
             if (instance == null) instance = new Controller();
             return instance;
+        }
+
+        private void SetDefaultValues() {
+            Constants.FuncType = 1;
+            Constants.ParamLocal = 20;
+            Constants.PathPointsNum = 100;
+            Constants.ConsumpStand = 2;
+            Constants.ConsumpPos = 5;
+            Constants.ConsumpNeg = 20;
+            Constants.VariationDist = 0.25;
         }
 
         public DataP3[] DataPoints
@@ -61,11 +71,11 @@
             fileManager.Close();
         }
 
-        public void StartAlgorithm(int type, int paramLocal)
+        public void StartAlgorithm()
         {
             if (algorithm != null)
             {
-                algorithm.StartAlgorithm(type, paramLocal);
+                algorithm.StartAlgorithm();
                 targetPoints = algorithm.TargetPoints;
             }
         }

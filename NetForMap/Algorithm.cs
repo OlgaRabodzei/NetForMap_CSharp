@@ -9,10 +9,9 @@ namespace NetForMap
         private DataP3[,] targetPoints;//Точки сетки
         private int numDataPoints;//Кол-во исходных точек
         private int type;//Тип весовой ф-ии
+        private int paramLocal;
 
-        //new
         private PathAlgorithm pathAlgorithm;
-        private int paramLocal = 20;
 
         private Algorithm(ref DataP3[] _dataPoints)
         { Init(ref _dataPoints); }
@@ -71,17 +70,19 @@ namespace NetForMap
         public DataP3[,] TargetPoints
         { get { return targetPoints; } }
 
-        public void StartAlgorithm(int _type, int paramLocal)
+        public void StartAlgorithm()
         {
-            this.type = _type;
+            this.type = Constants.FuncType;
+            this.paramLocal = Constants.ParamLocal;
+
             for (int i = 0; i < targetPoints.GetLength(0); ++i)
                 for (int j = 0; j < targetPoints.GetLength(1); j++)
-                    targetPoints[i,j].H = ObjectiveFunc(targetPoints[i,j].X, targetPoints[i,j].Y, paramLocal);
+                    targetPoints[i,j].H = ObjectiveFunc(targetPoints[i,j].X, targetPoints[i,j].Y);
         }
 
-        public double ObjectiveFunc(double x0, double y0, int paramLocal) //?!!! public or private?
+        public double ObjectiveFunc(double x0, double y0) //?!!! public or private?
         {
-            double[] a = OLSMethod(x0, y0, paramLocal);
+            double[] a = OLSMethod(x0, y0);
             return a[0];
         }
 
@@ -94,29 +95,10 @@ namespace NetForMap
             return res;
         }
 
-        private double[] OLSMethod(double x0, double y0, int paramLocal)
+        private double[] OLSMethod(double x0, double y0)
         {
             int size = 6;
             double[] a = new double[size];
-            #region составление матрицы коэфф
-            /*int[,] A = new int[size, size];
-            int[] b = new int[size];
-            for (int k = 0; k < size; k++)
-            {
-                b[k] = 0;
-                for (int m = 0; m < size; m++)
-                {
-                    A[k, m] = 0;
-                    for (int i = 0; i < numDataPoints; i++)
-                    {
-                        int[] fi = BaseFunctions(x0, y0, dataPoints[i].X, dataPoints[i].Y);
-                        A[k, m] += fi[k] * fi[m];
-                        if (m == 0)
-                            b[k] += dataPoints[i].H * fi[k];
-                    }
-                }
-            }*/
-            # endregion
             //составление расширенной матрицы коэффициентов
             double[,] A = new double[size, size + 1];
             for (int k = 0; k < size; k++)
@@ -230,8 +212,8 @@ namespace NetForMap
 
         public DataP3[] FindPath(float x1, float y1, float x2, float y2)
         {
-            DataP3 start = new DataP3(x1,y1, ObjectiveFunc(x1,y1,this.paramLocal));
-            DataP3 finish = new DataP3(x2,y2, ObjectiveFunc(x2,y2,this.paramLocal));
+            DataP3 start = new DataP3(x1,y1, ObjectiveFunc(x1,y1));
+            DataP3 finish = new DataP3(x2,y2, ObjectiveFunc(x2,y2));
             this.pathAlgorithm = new PathAlgorithm(start, finish,ref Algorithm.instance);
             return this.pathAlgorithm.FindPath();
         }

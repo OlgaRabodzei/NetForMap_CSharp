@@ -11,7 +11,6 @@ namespace NetForMap {
     public partial class PathAlgorithmSettingsForm : Form {
         public PathAlgorithmSettingsForm() {
             InitializeComponent();
-            SetDefaultValues();
         }
 
         private void SetDefaultValues() {

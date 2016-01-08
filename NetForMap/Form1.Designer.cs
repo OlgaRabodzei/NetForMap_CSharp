@@ -208,6 +208,7 @@
             this.regularNetToolStripMenuItem.Name = "regularNetToolStripMenuItem";
             this.regularNetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.regularNetToolStripMenuItem.Text = "Regular net";
+            this.regularNetToolStripMenuItem.Click += new System.EventHandler(this.regularNetToolStripMenuItem_Click);
             // 
             // pathToolStripMenuItem
             // 

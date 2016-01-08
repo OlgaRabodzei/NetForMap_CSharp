@@ -110,6 +110,9 @@
     <EmbeddedResource Include="3DSurfaceForm.resx">
       <DependentUpon>3DSurfaceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AlgorithmSettingsForm.resx">
+      <DependentUpon>AlgorithmSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
