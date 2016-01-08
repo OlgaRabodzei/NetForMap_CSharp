@@ -79,6 +79,7 @@
     <Compile Include="AlgorithmSettingsForm.Designer.cs">
       <DependentUpon>AlgorithmSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="DataP3.cs" />
     <Compile Include="DrawFile.cs" />

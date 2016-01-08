@@ -10,11 +10,7 @@ namespace NetForMap
 
         //константы! вводятся в программу конфигом или с формы
         int n = 100; //кол-во разбиений
-        double consumptionMin = 2;
-        double coefOfConsumptionPos = 10;
-        double coefOfConsumptionNeg = 5;
         int paramLocal = 20;//!!! дубликат из mainForm
-        double hVariation = 0.25;
 
         //fields
         DataP3[] path;
@@ -27,8 +23,7 @@ namespace NetForMap
             this.start = _start;
             this.finish = _finish;
             this.algorithm = _algorithm;
-            //ADD: read constants
-
+            
             //точки пути
             path = new DataP3[n];
 
@@ -82,7 +77,7 @@ namespace NetForMap
         private double ConsumptionFunction(DataP3 start, DataP3 finish)
         {
             double coefOfConsumption = ConsumptionCoefficientFunction(start.H, finish.H);
-            double consumption = consumptionMin + coefOfConsumption * (finish.H - start.H);
+            double consumption = Constants.ConsumpStand + coefOfConsumption * (finish.H - start.H);
             double distance = Math.Sqrt( Math.Pow((finish.X - start.X),2) + Math.Pow((finish.Y - start.Y),2));
 
             return distance * consumption;
@@ -91,9 +86,9 @@ namespace NetForMap
         private double ConsumptionCoefficientFunction(double h1, double h2)
         {
             if (h2 - h1 > 0) //полет вверх
-                return coefOfConsumptionPos;
+                return Constants.ConsumpPos;
             else if (h2 - h1 < 0) //полет вниз
-                return coefOfConsumptionNeg;
+                return Constants.ConsumpNeg;
             else
                 return 0;
         }
@@ -134,13 +129,13 @@ namespace NetForMap
             DataP3 posVariation, negVariation;
             double x, y, H;
 
-            x = path[index].X + this.hVariation * x_bisector;
-            y = path[index].Y + this.hVariation * y_bisector;
+            x = path[index].X + Constants.VariationDist * x_bisector;
+            y = path[index].Y + Constants.VariationDist * y_bisector;
             H = this.algorithm.ObjectiveFunc(x, y, this.paramLocal);
             posVariation = new DataP3(x, y, H);
 
-            x = path[index].X - this.hVariation * x_bisector;
-            y = path[index].Y - this.hVariation * y_bisector;
+            x = path[index].X - Constants.VariationDist * x_bisector;
+            y = path[index].Y - Constants.VariationDist * y_bisector;
             H = this.algorithm.ObjectiveFunc(x, y, this.paramLocal);
             negVariation = new DataP3(x, y, H);
 
