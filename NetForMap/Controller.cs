@@ -19,9 +19,9 @@
         }
 
         private void SetDefaultValues() {
-            Constants.FuncType = 1;
+            Constants.FuncType = 2;
             Constants.ParamLocal = 20;
-            Constants.PathPointsNum = 100;
+            Constants.PathPointsNum = 10;
             Constants.ConsumpStand = 2;
             Constants.ConsumpPos = 5;
             Constants.ConsumpNeg = 20;

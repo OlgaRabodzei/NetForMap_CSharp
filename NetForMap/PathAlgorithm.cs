@@ -35,7 +35,7 @@ namespace NetForMap
             double B = finish.X - this.start.X;
             double C = this.start.X * finish.Y - finish.X * this.start.Y;
             //размер отрезка разбиения
-            double step = Math.Sqrt(Math.Pow((finish.X - this.start.X), 2) + Math.Pow((finish.Y - this.start.Y), 2)) / Constants.PathPointsNum;
+            double step = Math.Sqrt(Math.Pow((finish.X - this.start.X), 2) + Math.Pow((finish.Y - this.start.Y), 2)) / (Constants.PathPointsNum + 2);
             //записываем начало и конец
             //start.H = algorithm.ObjectiveFunc(start.X, start.Y, Constants.ParamLocal);
             path[0] = this.start;

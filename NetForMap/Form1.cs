@@ -65,7 +65,7 @@ namespace NetForMap {
         }
 
         private void b_FindAndDrawPath_Click(object sender, EventArgs e) {
-            control.FindPath(1, 2, 8, 5);
+            control.FindPath(1, 1, 6, 6);
             draw.DrawPath(control.GetLastPath());
         }
 

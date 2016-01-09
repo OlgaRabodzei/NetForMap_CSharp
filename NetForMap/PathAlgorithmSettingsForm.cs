@@ -11,14 +11,15 @@ namespace NetForMap {
     public partial class PathAlgorithmSettingsForm : Form {
         public PathAlgorithmSettingsForm() {
             InitializeComponent();
+            SetDefaultValues();
         }
 
         private void SetDefaultValues() {
-            numUD_numberOfPoints.Value = 100;
-            numUD_consumpStand.Value = 2;
-            numUD_consumpPos.Value = 5;
-            numUD_consumpNeg.Value = 20;
-            numUD_varDistance.Value = 0.25M;
+            numUD_numberOfPoints.Value = Constants.PathPointsNum;
+            numUD_consumpStand.Value = Convert.ToDecimal( Constants.ConsumpStand);
+            numUD_consumpPos.Value = Convert.ToDecimal(Constants.ConsumpPos);
+            numUD_consumpNeg.Value = Convert.ToDecimal(Constants.ConsumpNeg);
+            numUD_varDistance.Value =  Convert.ToDecimal(Constants.VariationDist);
         }
 
         private void numUD_numberOfPoints_ValueChanged(object sender, EventArgs e) {

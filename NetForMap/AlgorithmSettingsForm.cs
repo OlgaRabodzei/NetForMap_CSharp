@@ -11,6 +11,16 @@ namespace NetForMap {
     public partial class AlgorithmSettingsForm : Form {
         public AlgorithmSettingsForm() {
             InitializeComponent();
+            SetDefaultValues();
+        }
+
+        private void SetDefaultValues() {
+            switch (Constants.FuncType) {
+                case 1: rB_func1.Checked = true; break;
+                case 2: rB_func2.Checked = true; break;
+                case 3: rB_func3.Checked = true; break;
+            }
+            numUD_localParam.Value = Convert.ToDecimal(Constants.ParamLocal);
         }
 
         private void rB_func1_CheckedChanged(object sender, EventArgs e) {
