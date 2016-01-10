@@ -11,32 +11,61 @@ namespace NetForMap
         public Heap(Pair[] _points)
         {
             this.points = _points;
-            int pointsCount = _points.Length;
-            this.count = 2*(pointsCount-1);
+            int pointsCount = _points.Length; 
+            
+            int leafsCount = pointsCount;
+            leafsCount = leafsCount - 1;
+            leafsCount = leafsCount | (leafsCount >> 1);
+            leafsCount = leafsCount | (leafsCount >> 2);
+            leafsCount = leafsCount | (leafsCount >> 4);
+            leafsCount = leafsCount | (leafsCount >> 8);
+            leafsCount = leafsCount | (leafsCount >> 16);
+            leafsCount = leafsCount | (leafsCount >> 32);
+            leafsCount = leafsCount + 1;
+
+            this.count = 2 * leafsCount - 1;
             this.heap = new int[this.count];
-            for (int i = pointsCount - 2; i > 0; i--) {
-                this.heap[i] = int.MinValue;
+
+            for (int i = 0; i < pointsCount; i++) {
+                this.heap[this.count - 1 - i] = i;
             }
-            for (int i = this.count - 1; i >= pointsCount-1; i--) {
-                this.heap[i] = this.count - i;
+            for (int i = count - 1 - pointsCount; i >= 0; i--) {
+                this.heap[i] = int.MinValue;
             }
             BuildHeap();
         }
 
         private void BuildHeap() {
-            int pointsStartInHeap = points.Length - 1;
-            for (int i = count - 1; i >= pointsStartInHeap; i--) {
-                SiftUp(i);
+            //int pointsStartInHeap = points.Length - 1;
+            int pointsCount = this.points.Length;
+            for (int i = 1; i < pointsCount - 1; i++) {
+                SiftUp(this.count - 1 - i);
             }
         }
 
-        private void SiftUp(int index)
-        {
+        private void SiftUp(int index) {
             if (index == 0) return;
-            if (heap[(index - 1) / 2] == int.MinValue || // If parent is empty OR
-                points[heap[(index - 1) / 2]].getConsumption() < points[heap[index]].getConsumption()) // If cur priority is greater
-            {
+           
+            if (heap[(index - 1) / 2] == int.MinValue) {
                 heap[(index - 1) / 2] = heap[index];
+                SiftUp((index - 1) / 2);
+            }
+            if ((index & 1) == 0 && heap[index - 1] != int.MinValue) {
+                if (points[heap[index - 1]].getConsumption() < points[heap[index]].getConsumption()) {
+                    heap[(index - 1) / 2] = heap[index];
+                }
+                else {
+                    heap[(index - 1) / 2] = heap[index - 1];
+                }
+                SiftUp((index - 1) / 2);
+            }
+            if ((index & 1) == 1 && heap[index + 1] != int.MinValue) {
+                if (points[heap[index + 1]].getConsumption() < points[heap[index]].getConsumption()) {
+                    heap[(index - 1) / 2] = heap[index];
+                }
+                else {
+                    heap[(index - 1) / 2] = heap[index + 1];
+                }
                 SiftUp((index - 1) / 2);
             }
         }
@@ -51,7 +80,7 @@ namespace NetForMap
         public void ChangePriority(double newPriority, int index) {
             points[index].setConsumption(newPriority);
             //SiftUp(points.Length - 1 + index);
-            SiftUp(heap.Length - index);
+            SiftUp(heap.Length - 1 - index);
         }
     }
 }
