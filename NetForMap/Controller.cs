@@ -81,7 +81,7 @@
         }
 
         public void FindMinMaxCoordinates(ref double minX, ref double maxX, ref double minY, ref double maxY)
-        { algorithm.FindMinMaxCoordinates(ref minX, ref maxX, ref minY, ref maxY); }
+        { DataP3.FindMinMaxCoordinates(dataPoints,ref minX, ref maxX, ref minY, ref maxY); }
 
         public void GenerateTestSurface()
         {

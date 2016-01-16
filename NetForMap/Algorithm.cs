@@ -23,7 +23,7 @@ namespace NetForMap
 
             double minX = 0; double maxX = 0;
             double minY = 0; double maxY = 0;
-            FindMinMaxCoordinates(ref minX, ref maxX, ref minY, ref maxY);
+            DataP3.FindMinMaxCoordinates(dataPoints,ref minX, ref maxX, ref minY, ref maxY);
             double widthNetX = (maxX - minX);
             double widthNetY = (maxY - minY);
             int cellWidth = 1;
@@ -49,19 +49,6 @@ namespace NetForMap
         {
             if (instance == null) instance = new Algorithm(ref _dataPoints);
             return instance;
-        }
-
-        public void FindMinMaxCoordinates(ref double minX, ref double maxX, ref double minY, ref double maxY)
-        {
-            minX = maxX = dataPoints[0].X;
-            minY = maxY = dataPoints[0].Y;
-            for (int i = 1; i < dataPoints.Length; ++i)
-            {
-                if (dataPoints[i].X < minX) minX = dataPoints[i].X;
-                if (dataPoints[i].X > maxX) maxX = dataPoints[i].X;
-                if (dataPoints[i].Y < minY) minY = dataPoints[i].Y;
-                if (dataPoints[i].Y > maxY) maxY = dataPoints[i].Y;
-            }
         }
 
         public DataP3[] DataPoints

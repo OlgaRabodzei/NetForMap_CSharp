@@ -8,6 +8,7 @@ namespace NetForMap
     {
         private static Draw instance;
         private Graphics graphics;
+        private bool scaleIsSet = false;
 
         private Draw(PictureBox pictureBox) {
             this.graphics = pictureBox.CreateGraphics();
@@ -104,15 +105,12 @@ namespace NetForMap
 
         public void DrawAllIsolines(DataP3[,] Points)
         {
-            //ДОДЕЛАТЬ! автоматическое построение всех
-            DrawIsoline(Points, 0.0f);
-            DrawIsoline(Points, 0.5f);
-            DrawIsoline(Points, 1.0f);
-            DrawIsoline(Points, 1.5f);
-            DrawIsoline(Points, 2.0f);
-            DrawIsoline(Points, 2.5f);
-            DrawIsoline(Points, 3.0f);
-            DrawIsoline(Points, 3.5f);
+            double minH = 0;
+            double maxH=0;
+            DataP3.FindMinMaxHeight(Points, ref minH, ref maxH);
+            for (float i = (float)minH; i <= maxH; i+=0.5f) {
+                DrawIsoline(Points, i);
+            }
         }
 
         private void DrawIsoline(DataP3[,] Points, float H)
@@ -172,7 +170,9 @@ namespace NetForMap
         }
 
         public void SetScale(float kx, float ky) {
+            if (scaleIsSet) return;
             graphics.ScaleTransform(kx, ky);
+            scaleIsSet = true;
         }
     }
 }

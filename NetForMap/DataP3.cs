@@ -34,6 +34,26 @@
             return newData;
         }
 
+        public static void FindMinMaxCoordinates(DataP3[] dataPoints, ref double minX, ref double maxX, ref double minY, ref double maxY) {
+            minX = maxX = dataPoints[0].X;
+            minY = maxY = dataPoints[0].Y;
+            for (int i = 1; i < dataPoints.Length; ++i) {
+                if (dataPoints[i].X < minX) minX = dataPoints[i].X;
+                if (dataPoints[i].X > maxX) maxX = dataPoints[i].X;
+                if (dataPoints[i].Y < minY) minY = dataPoints[i].Y;
+                if (dataPoints[i].Y > maxY) maxY = dataPoints[i].Y;
+            }
+        }
+
+        public static void FindMinMaxHeight(DataP3[,] dataPoints, ref double minH, ref double maxH) {
+            minH = maxH = dataPoints[0, 0].H;
+            for (int i = 1; i < dataPoints.GetLength(0); ++i)
+                for (int j = 0; j < dataPoints.GetLength(1); j++) {
+                    if (dataPoints[i, j].H < minH) minH = dataPoints[i, j].H;
+                    if (dataPoints[i, j].H > maxH) maxH = dataPoints[i, j].H;
+                }
+        }
+
        /* public static bool operator ==(DataP3 d1, DataP3 d2)
         {
             if (d1.X == d2.X && d1.Y == d2.Y && d1.H == d2.H)

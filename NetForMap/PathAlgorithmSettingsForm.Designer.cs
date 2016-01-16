@@ -62,7 +62,7 @@
             this.groupBox_General.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_General.Location = new System.Drawing.Point(0, 0);
             this.groupBox_General.Name = "groupBox_General";
-            this.groupBox_General.Size = new System.Drawing.Size(640, 75);
+            this.groupBox_General.Size = new System.Drawing.Size(440, 75);
             this.groupBox_General.TabIndex = 0;
             this.groupBox_General.TabStop = false;
             this.groupBox_General.Text = "General";
@@ -112,37 +112,43 @@
             this.groupBox_Fuel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_Fuel.Location = new System.Drawing.Point(0, 75);
             this.groupBox_Fuel.Name = "groupBox_Fuel";
-            this.groupBox_Fuel.Size = new System.Drawing.Size(640, 322);
+            this.groupBox_Fuel.Size = new System.Drawing.Size(440, 322);
             this.groupBox_Fuel.TabIndex = 1;
             this.groupBox_Fuel.TabStop = false;
             this.groupBox_Fuel.Text = "Fuel Consumption";
             // 
             // trB_consumpNeg
             // 
+            this.trB_consumpNeg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.trB_consumpNeg.Location = new System.Drawing.Point(15, 243);
             this.trB_consumpNeg.Maximum = 100;
             this.trB_consumpNeg.Name = "trB_consumpNeg";
-            this.trB_consumpNeg.Size = new System.Drawing.Size(613, 45);
+            this.trB_consumpNeg.Size = new System.Drawing.Size(421, 45);
             this.trB_consumpNeg.TabIndex = 8;
             this.trB_consumpNeg.TickFrequency = 5;
             this.trB_consumpNeg.Scroll += new System.EventHandler(this.trB_consumpNeg_Scroll);
             // 
             // trB_consumpPos
             // 
+            this.trB_consumpPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.trB_consumpPos.Location = new System.Drawing.Point(15, 147);
             this.trB_consumpPos.Maximum = 100;
             this.trB_consumpPos.Name = "trB_consumpPos";
-            this.trB_consumpPos.Size = new System.Drawing.Size(613, 45);
+            this.trB_consumpPos.Size = new System.Drawing.Size(421, 45);
             this.trB_consumpPos.TabIndex = 7;
             this.trB_consumpPos.TickFrequency = 5;
             this.trB_consumpPos.Scroll += new System.EventHandler(this.trB_consumpPos_Scroll);
             // 
             // trB_consumpStand
             // 
+            this.trB_consumpStand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.trB_consumpStand.Location = new System.Drawing.Point(15, 60);
             this.trB_consumpStand.Maximum = 100;
             this.trB_consumpStand.Name = "trB_consumpStand";
-            this.trB_consumpStand.Size = new System.Drawing.Size(613, 45);
+            this.trB_consumpStand.Size = new System.Drawing.Size(421, 45);
             this.trB_consumpStand.TabIndex = 6;
             this.trB_consumpStand.TickFrequency = 5;
             this.trB_consumpStand.Scroll += new System.EventHandler(this.trB_consumpStand_Scroll);
@@ -231,16 +237,18 @@
             this.groupBox_Variation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox_Variation.Location = new System.Drawing.Point(0, 397);
             this.groupBox_Variation.Name = "groupBox_Variation";
-            this.groupBox_Variation.Size = new System.Drawing.Size(640, 114);
+            this.groupBox_Variation.Size = new System.Drawing.Size(440, 114);
             this.groupBox_Variation.TabIndex = 2;
             this.groupBox_Variation.TabStop = false;
             this.groupBox_Variation.Text = "Point Variation";
             // 
             // trB_varDistance
             // 
+            this.trB_varDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.trB_varDistance.Location = new System.Drawing.Point(15, 54);
             this.trB_varDistance.Name = "trB_varDistance";
-            this.trB_varDistance.Size = new System.Drawing.Size(613, 45);
+            this.trB_varDistance.Size = new System.Drawing.Size(421, 45);
             this.trB_varDistance.TabIndex = 11;
             this.trB_varDistance.Scroll += new System.EventHandler(this.trB_varDistance_Scroll);
             // 
@@ -273,10 +281,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 517);
+            this.ClientSize = new System.Drawing.Size(440, 517);
             this.Controls.Add(this.groupBox_Variation);
             this.Controls.Add(this.groupBox_Fuel);
             this.Controls.Add(this.groupBox_General);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "PathAlgorithmSettingsForm";
             this.Text = "PathAlgorithmSettingsForm";

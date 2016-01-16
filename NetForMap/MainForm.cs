@@ -1,103 +1,97 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
-namespace NetForMap
-{
-    public partial class MainForm : Form
-    {
+namespace NetForMap {
+    public partial class MainForm : Form {
         Controller control;
-        private int type = 1;//Тип весовой функции
-        private int paramLocal = 20;//зачение параметра локальности
+        private Draw draw;
 
-        public MainForm()
-        { InitializeComponent(); control = Controller.getInstance(); }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            string fileName = openFileDialog1.FileName;
-            control.LoadData(fileName);
+        public MainForm() {
+            InitializeComponent();
+            control = Controller.getInstance();
+            draw = Draw.getInstance(pictureBox);
         }
 
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e) { }
+        private void b_Load_Click(object sender, EventArgs e) {
+            openFileDialog.ShowDialog();
+        }
 
-        private void загрузитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
-        { openFileDialog1.ShowDialog(); }
-
-        private void сохранитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-            if (DialogResult == DialogResult.OK)
-            {
-                string fileName = saveFileDialog1.FileName;
-                control.SaveData(fileName, true, false);
+        private void b_DrawPoints_Click(object sender, EventArgs e) {
+            if (control.DataPoints == null) {
+                return;
             }
-        }
-
-        private void сохранитьРезультатToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-            if (DialogResult == DialogResult.OK)
-            {
-                string fileName = saveFileDialog1.FileName;
-                control.SaveData(fileName, false, true);
-            }
-        }
-
-        private void соханитьВсеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-            if (DialogResult == DialogResult.OK || DialogResult == DialogResult.None)//none?
-            {
-                string fileName = saveFileDialog1.FileName;
-                control.SaveData(fileName, true, true);
-            }
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        { control.CloseIOStream(); Close(); }
-
-        private void сгенерироватьТестовуюПоверхностьToolStripMenuItem_Click(object sender, EventArgs e)
-        { control.GenerateTestSurface(); }
-
-        private void сгенерироватьТестовыеДанныеToolStripMenuItem_Click(object sender, EventArgs e)
-        { control.GenerateTestData(); }
-
-        private void вычислитьРегулярнуюСеткуToolStripMenuItem_Click(object sender, EventArgs e)
-        { control.StartAlgorithm(type, paramLocal);
-        control.FindPath(1, 1, 6, 6);
-        }
-
-        private void отобразитьТочкиНаПлоскостиToolStripMenuItem_Click(object sender, EventArgs e)
-        { pictureBox.Invalidate(); }
-
-        private void pictureBox_Paint(object sender, PaintEventArgs e)
-        {
-            if (control.TargetPoints != null || control.DataPoints != null)
-            {
+            using (Graphics graphics = pictureBox.CreateGraphics()) {
                 float kx = 1; float ky = 1;
-                Scale(ref kx, ref ky);
-                e.Graphics.ScaleTransform(kx, ky);
-            }
-            if (control.TargetPoints != null)
-            {
-                Pen pen = new Pen(Color.Red, 0.0f);
-                foreach (DataP3 p in control.TargetPoints)
-                    e.Graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
-                Draw.DrawAllIsolines(control.TargetPoints, ref e);
-                Draw.DrawPath(control.GetLastPath(), ref e);
-            }
-            if (control.DataPoints != null)
-            {
+                Scale(ref kx,ref ky);
+                graphics.ScaleTransform(kx, ky);
+
                 Pen pen = new Pen(Color.Blue, 0.0f);
                 foreach (DataP3 p in control.DataPoints)
-                    e.Graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
+                    graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
+            }
+
+        }
+
+        private void b_FindAndDrawNet_Click(object sender, EventArgs e) {
+            if (control.DataPoints == null) {
+                return;
+            }
+            // Find net
+            control.StartAlgorithm();
+            // Draw net
+            if (control.TargetPoints == null) {
+                return;
+            }
+            using (Graphics graphics = pictureBox.CreateGraphics()) {
+                float kx = 1; float ky = 1;
+                Scale(ref kx, ref ky);
+                graphics.ScaleTransform(kx, ky);
+
+                Pen pen = new Pen(Color.Red, 0.0f);
+                foreach (DataP3 p in control.TargetPoints)
+                    graphics.DrawEllipse(pen, (float)p.X, (float)p.Y, 0.05f, 0.05f);
+
+                draw.SetScale(kx, ky);
+                draw.DrawAllIsolines(control.TargetPoints);
+            }
+            b_Surface.Enabled = true;
+            b_FindAndDrawPath.Enabled = true;
+        }
+
+        private void b_FindAndDrawPath_Click(object sender, EventArgs e) {
+            SetPointsForm pointForm = new SetPointsForm();
+            pointForm.ShowDialog(this);
+            draw.DrawPath(control.GetLastPath());
+        }
+
+        private void b_Clear_Click(object sender, EventArgs e) {
+            pictureBox.Refresh();
+        }
+
+        private void b_Surface_Click(object sender, EventArgs e) {
+            if (control.TargetPoints != null) {
+                _3DSurfaceForm surface = new _3DSurfaceForm(control.TargetPoints, "Created surface");
+                surface.Show();
             }
         }
 
-        private void Scale(ref float kx, ref float ky)
-        {
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e) {
+            string fileName = openFileDialog.FileName;
+            control.LoadData(fileName);
+            if (control.DataPoints != null) {
+                b_DrawPoints.Enabled = true;
+                b_FindAndDrawNet.Enabled = true;
+                b_Clear.Enabled = true;
+            }
+        }
+
+        private void Scale(ref float kx, ref float ky) {
             double minX = 0;
             double maxX = 0;
             double minY = 0;
@@ -108,34 +102,18 @@ namespace NetForMap
             ky = (float)(pictureBox.Height / (maxY + 1));
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        { if (radioButton1.Checked) type = 1; }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        { if (radioButton2.Checked) type = 2; }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        { if (radioButton3.Checked) type = 3; }
-
-        private void тестоваяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (control.TestSurface != null)
-            {
-                _3DSurfaceForm surface = new _3DSurfaceForm(control.TestSurface, "Тестовая поверхность");
-                surface.Show();
-            }
+        private void pathToolStripMenuItem_Click(object sender, EventArgs e) {
+            PathAlgorithmSettingsForm pathSettings = new PathAlgorithmSettingsForm();
+            pathSettings.Show(this);
         }
 
-        private void построеннаяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (control.TargetPoints != null)
-            {
-                _3DSurfaceForm surface = new _3DSurfaceForm(control.TargetPoints, "Построенная поверхность");
-                surface.Show();
-            }
+        private void regularNetToolStripMenuItem_Click(object sender, EventArgs e) {
+            AlgorithmSettingsForm settings = new AlgorithmSettingsForm();
+            settings.Show(this);
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        { paramLocal = (int)numericUpDown1.Value; }
+        private void MainForm_ResizeEnd(object sender, EventArgs e) {
+            //TO DO: Add redraw.
+        }
     }
 }

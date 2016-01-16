@@ -84,19 +84,22 @@
     <Compile Include="DataP3.cs" />
     <Compile Include="DrawFile.cs" />
     <Compile Include="FileManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Heap.cs" />
-    <None Include="MainForm.cs">
+    <Compile Include="SetPointsForm.cs">
       <SubType>Form</SubType>
-    </None>
-    <None Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </None>
+    </Compile>
+    <Compile Include="SetPointsForm.Designer.cs">
+      <DependentUpon>SetPointsForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SetPointsForm.resx">
+      <DependentUpon>SetPointsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Pair.cs" />
     <Compile Include="PathAlgorithm.cs" />
     <Compile Include="PathAlgorithmSettingsForm.cs">
@@ -113,12 +116,9 @@
     <EmbeddedResource Include="AlgorithmSettingsForm.resx">
       <DependentUpon>AlgorithmSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="MainForm.resx">
+    <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </None>
+    </EmbeddedResource>
     <EmbeddedResource Include="PathAlgorithmSettingsForm.resx">
       <DependentUpon>PathAlgorithmSettingsForm.cs</DependentUpon>
     </EmbeddedResource>

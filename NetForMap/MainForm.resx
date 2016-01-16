@@ -117,50 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>125, 17</value>
+  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
   </metadata>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>265, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAFsAAAAoCAYAAACRgIb2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAALtSURBVGhD7VkBjsIwDNvPeBpP42mcgs7I+JKmHaXtuE1C
-        x9auTRzHTY7tfl7DENiG7XRudD/BHkiCE+wT7IEIDNzqZPYJ9kAEBm51OGZv23a3z8zrer3u2n6u1Y0m
-        Xy6XB9Azwcb+e2w4DNjGpnccbYyrO533/2qw2VFj+IzLCzZnmhHidruFph2G2ebBTAnRzDJbvGf2PAL8
-        BDvgIR+CBh6fFyoneh8doIcBm1n0aQkxcJW52BNAAnz7a89q7DsM2J+QEI+hLFcMugZY7amx7wT7t5Q0
-        sIylkVww2FGQsozbBXZLUV86MDLjOHWR1rXv7J0X6THW84JheOB5CRsX7FKZhTFLMXxgiN73qiCQznsB
-        xHsKZFRCqg57rGbfauv/P2BnkUW6eUB6uqWBe7cx2As49n2nOfL8A5NL9fUz2JHwa7mTgQsnlC1ZmZRp
-        IYPTUn5FfvEaLXJo63mZ2xL8F2bDMRih9xxZGK0pyptzADzQ1dksMC3jbAdkaFZWucwulTNaBkVzGUAv
-        OJzONanXwpxobk1Z1mOfbI0XZvPhp7LBBjNTkF4ea/Y6qRJm92gcVHMtw3Q8khC2dcb/V55gR30+jCqx
-        VIFmsPY41SIX2YHOpFH9z5jYe7wIdiQJqoF87wWn1WjNCLA6kp2sXfbsbbWpx/wn2FnKZ+Ol1I0MBUje
-        YaZBa92/Bzi916gGG7rYy4CoMmBQ+QypBRss3iNfvXwLD2obmPlzk1deQr4MYHRz+M4anGn7p8FrXf/B
-        bDa6dYEe85XNqs1RmVkCu7Vh6eFHtsYL2KPq3kjfwXIe9w5LBVk7yxWBfpA6i8aIcU+/S9rrVTy1mj7C
-        n6JmzzTAkzHuMmFb1NrzmTPbj2z/JZitB7Sy1PuZyqtaPBnKABg5vgTYUfeqz7U54apl9iFfE7QlwGZ9
-        LlUYUeXE76xYXyMQS4CtrFB9zu4hQ7OqqRpWL1ON1Bp79HlLMvvooC5d+n0ruH+at//i6Ap+/gBXBp63
-        +sIAfAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="radioButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEwAAAAiCAYAAAD1aT8BAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAAhdEVYdENyZWF0aW9uIFRpbWUAMjAxNTowNToxNSAwMToy
-        MToyNCcEkqoAAAJmSURBVGhD7ZkLjoMwDES5WY/Wo3E0VkYdNJ06iR3I7kKptFILzsev44nZTsv9ShGY
-        UtF38HIDS4rgBnYDSxJIhl9aYc/nc3k8HiEkFjtN0zLPczX+0sAMgP1FXog1cLVXbLbIiv8sBooBMFMO
-        3gMOqw/XvlZhBgMlpvAABwD1/tcpDGpSRelnlJ8CvCwwTpQ9SEuO46A8LsGofxnIX/ewlqlmrNADxtc8
-        BdXGRPa2C1jmFDIQWioZOF6sJQiTtvcKCPdqkFhxkf0UgdliMEOvl+lJvmcMkgCQlgo8A2+pyu635sU+
-        isBKi2wDXz0Ob5CPZMDRjWRVyfN75aaqyBi4jYXCIuoqelhpk9wEcuKeaWIOBpY5vpGAmnQLCLcTUQhR
-        dRWB8aa4jLRvUc/ghT0lIZnoBmvlFZ0jCi0a55akdr3qZZq4wvG8iq/BrEtlD8+stQPRBI+O+wDmJcsA
-        9VtvmSybNoOtlZoHTOEeDSI63wcwPWYVoN6PAqvNq0rSg0Wb0tbzXjT5nrg3YJ5fqcmWPnv+hfkYVqSZ
-        XM31dQrzQdOT4NFj3oDp6ehtXE9E9bvacxz3O7XeqAQMveHREDLzvQFrNXiciJaNqajmS96pWSstVZge
-        Gpkkj4wNA7MN1w6EGuye8tImtWeOI0FtAuFJvaRNNd4zWcmY1Qc9X4wkUlJrZOzImE1h7F+lprD3W1af
-        G5nQ6Lk3YBEYkRhvwzYu+mPE6IT3zp8CZouhS9+78FnHr8C8duKsCY3e9wpMT6TRi555/g9gf/nYcQaQ
-        K7DsP9HOkNioPW6mfysrhnjXjyCxJa4V9QMxWSFTLgnbRQAAAABJRU5ErkJggg==
-</value>
-  </data>
 </root>
